@@ -66,6 +66,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -121,7 +122,16 @@ public class PlaybackOverlayActivity extends Activity implements
     @Override
     protected void onStart() {
         super.onStart();
-        faceDetector.redPill(new YOLOFrameProvider());
+        startTheCreepyFaceStuff();
+    }
+
+    private void startTheCreepyFaceStuff() {
+        try {
+            faceDetector.redPill(new YOLOFrameProvider());
+        } catch (IllegalStateException e) {
+            Log.w("POTATO", "Whoops", e);
+            handler.postDelayed(new LOLRunnable(), 150);
+        }
     }
 
     @Override
@@ -134,11 +144,13 @@ public class PlaybackOverlayActivity extends Activity implements
     private void newFaceIsHere() {
         faces++;
         helloIsAnyoneHere();
+        Toast.makeText(this, "Ohai", Toast.LENGTH_SHORT).show();
     }
 
     private void goodbyeDood() {
         faces--;
         helloIsAnyoneHere();
+        Toast.makeText(this, "Byes :(", Toast.LENGTH_SHORT).show();
     }
 
     private void helloIsAnyoneHere() {
@@ -409,6 +421,13 @@ public class PlaybackOverlayActivity extends Activity implements
                     goodbyeDood();
                 }
             });
+        }
+    }
+
+    private class LOLRunnable implements Runnable {
+        @Override
+        public void run() {
+            startTheCreepyFaceStuff();
         }
     }
 }
