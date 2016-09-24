@@ -106,67 +106,132 @@
  *                                    lad
  */
 
-package de.culo.lucyo;
+package de.culo.lucyo.model;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-public class PictureActivity extends Activity {
+/*
+ * Movie class represents video entity with title, description, image thumbs and video url.
+ *
+ */
+public class Movie implements Serializable {
+    static final long serialVersionUID = 727566175075960653L;
+    private static long count = 0;
+    private long id;
+    private String title;
+    private String description;
+    private String bgImageUrl;
+    private String cardImageUrl;
+    private String videoUrl;
+    private String studio;
+    private String category;
 
-    private ImageView image;
-    private Button snapButton;
+    public Movie() {
+    }
+
+    public static long getCount() {
+        return count;
+    }
+
+    public static void incCount() {
+        count++;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStudio() {
+        return studio;
+    }
+
+    public void setStudio(String studio) {
+        this.studio = studio;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getBackgroundImageUrl() {
+        return bgImageUrl;
+    }
+
+    public void setBackgroundImageUrl(String bgImageUrl) {
+        this.bgImageUrl = bgImageUrl;
+    }
+
+    public String getCardImageUrl() {
+        return cardImageUrl;
+    }
+
+    public void setCardImageUrl(String cardImageUrl) {
+        this.cardImageUrl = cardImageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public URI getBackgroundImageURI() {
+        try {
+            Log.d("BACK MOVIE: ", bgImageUrl);
+            return new URI(getBackgroundImageUrl());
+        } catch (URISyntaxException e) {
+            Log.d("URI exception: ", bgImageUrl);
+            return null;
+        }
+    }
+
+    public URI getCardImageURI() {
+        try {
+            return new URI(getCardImageUrl());
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snap);
-
-        image = (ImageView) findViewById(R.id.snap_image);
-        snapButton = (Button) findViewById(R.id.snap_button);
-        snapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                new AsyncTask<Void, Void, Bitmap>() {
-//                    @Override
-//                    protected Bitmap doInBackground(Void... params) {
-//                        Log.d("SNAP", "taking pic");
-//                        String bytes;
-//                        try {
-//                            bytes = CameraCalls.takeAPicture();
-//                            Log.d("SNAP", bytes);
-//                            Bitmap decodedByte = buildBitmap(bytes);
-//                            return decodedByte;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//
-//                    private Bitmap buildBitmap(String bytes) {
-//                        byte[] decodedString = Base64.decode(bytes, Base64.DEFAULT);
-//                        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Bitmap bitmap) {
-//                        super.onPostExecute(bitmap);
-//                        image.setImageBitmap(bitmap);
-//                    }
-//                }.execute();
-
-                image.setImageBitmap(null);
-                Glide.with(PictureActivity.this)
-                        .load("http://192.168.0.121:88/CGIProxy.fcgi?cmd=snapPicture2&usr=user2&pwd=media2")
-                        .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                        .centerCrop()
-                        .into(image);
-            }
-        });
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", backgroundImageUrl='" + bgImageUrl + '\'' +
+                ", backgroundImageURI='" + getBackgroundImageURI().toString() + '\'' +
+                ", cardImageUrl='" + cardImageUrl + '\'' +
+                '}';
     }
 }

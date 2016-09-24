@@ -106,67 +106,24 @@
  *                                    lad
  */
 
-package de.culo.lucyo;
+package de.culo.lucyo.opa;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import de.culo.lucyo.R;
 
-public class PictureActivity extends Activity {
-
-    private ImageView image;
-    private Button snapButton;
+/*
+ * MainActivity class that loads MainFragment
+ */
+public class OpaActivity extends Activity {
+    /**
+     * Called when the activity is first created.
+     */
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snap);
-
-        image = (ImageView) findViewById(R.id.snap_image);
-        snapButton = (Button) findViewById(R.id.snap_button);
-        snapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                new AsyncTask<Void, Void, Bitmap>() {
-//                    @Override
-//                    protected Bitmap doInBackground(Void... params) {
-//                        Log.d("SNAP", "taking pic");
-//                        String bytes;
-//                        try {
-//                            bytes = CameraCalls.takeAPicture();
-//                            Log.d("SNAP", bytes);
-//                            Bitmap decodedByte = buildBitmap(bytes);
-//                            return decodedByte;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//
-//                    private Bitmap buildBitmap(String bytes) {
-//                        byte[] decodedString = Base64.decode(bytes, Base64.DEFAULT);
-//                        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Bitmap bitmap) {
-//                        super.onPostExecute(bitmap);
-//                        image.setImageBitmap(bitmap);
-//                    }
-//                }.execute();
-
-                image.setImageBitmap(null);
-                Glide.with(PictureActivity.this)
-                        .load("http://192.168.0.121:88/CGIProxy.fcgi?cmd=snapPicture2&usr=user2&pwd=media2")
-                        .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                        .centerCrop()
-                        .into(image);
-            }
-        });
+        setContentView(R.layout.activity_opa);
     }
 }

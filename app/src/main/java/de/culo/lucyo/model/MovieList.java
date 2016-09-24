@@ -106,67 +106,94 @@
  *                                    lad
  */
 
-package de.culo.lucyo;
+package de.culo.lucyo.model;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+public final class MovieList {
+    public static final String MOVIE_CATEGORY[] = {
+            "Category Zero",
+            "Category One",
+            "Category Two",
+            "Category Three",
+            "Category Four",
+            "Category Five",
+    };
 
-public class PictureActivity extends Activity {
+    public static List<Movie> list;
 
-    private ImageView image;
-    private Button snapButton;
+    public static List<Movie> setupMovies() {
+        list = new ArrayList<Movie>();
+        String title[] = {
+                "Zeitgeist 2010_ Year in Review",
+                "Google Demo Slam_ 20ft Search",
+                "Introducing Gmail Blue",
+                "Introducing Google Fiber to the Pole",
+                "Introducing Google Nose"
+        };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snap);
+        String description = "Fusce id nisi turpis. Praesent viverra bibendum semper. "
+                + "Donec tristique, orci sed semper lacinia, quam erat rhoncus massa, non congue tellus est "
+                + "quis tellus. Sed mollis orci venenatis quam scelerisque accumsan. Curabitur a massa sit "
+                + "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit "
+                + "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id "
+                + "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat.";
 
-        image = (ImageView) findViewById(R.id.snap_image);
-        snapButton = (Button) findViewById(R.id.snap_button);
-        snapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                new AsyncTask<Void, Void, Bitmap>() {
-//                    @Override
-//                    protected Bitmap doInBackground(Void... params) {
-//                        Log.d("SNAP", "taking pic");
-//                        String bytes;
-//                        try {
-//                            bytes = CameraCalls.takeAPicture();
-//                            Log.d("SNAP", bytes);
-//                            Bitmap decodedByte = buildBitmap(bytes);
-//                            return decodedByte;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//
-//                    private Bitmap buildBitmap(String bytes) {
-//                        byte[] decodedString = Base64.decode(bytes, Base64.DEFAULT);
-//                        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Bitmap bitmap) {
-//                        super.onPostExecute(bitmap);
-//                        image.setImageBitmap(bitmap);
-//                    }
-//                }.execute();
+        String videoUrl[] = {
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review.mp4",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search.mp4",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue.mp4",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole.mp4",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose.mp4"
+        };
+        String bgImageUrl[] = {
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/bg.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/bg.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/bg.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/bg.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/bg.jpg",
+        };
+        String cardImageUrl[] = {
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/card.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/card.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/card.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/card.jpg",
+                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/card.jpg"
+        };
 
-                image.setImageBitmap(null);
-                Glide.with(PictureActivity.this)
-                        .load("http://192.168.0.121:88/CGIProxy.fcgi?cmd=snapPicture2&usr=user2&pwd=media2")
-                        .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                        .centerCrop()
-                        .into(image);
-            }
-        });
+        list.add(buildMovieInfo("category", title[0],
+                                description, "Studio Zero", videoUrl[0], cardImageUrl[0], bgImageUrl[0]
+        ));
+        list.add(buildMovieInfo("category", title[1],
+                                description, "Studio One", videoUrl[1], cardImageUrl[1], bgImageUrl[1]
+        ));
+        list.add(buildMovieInfo("category", title[2],
+                                description, "Studio Two", videoUrl[2], cardImageUrl[2], bgImageUrl[2]
+        ));
+        list.add(buildMovieInfo("category", title[3],
+                                description, "Studio Three", videoUrl[3], cardImageUrl[3], bgImageUrl[3]
+        ));
+        list.add(buildMovieInfo("category", title[4],
+                                description, "Studio Four", videoUrl[4], cardImageUrl[4], bgImageUrl[4]
+        ));
+
+        return list;
+    }
+
+    private static Movie buildMovieInfo(String category, String title,
+                                        String description, String studio, String videoUrl, String cardImageUrl,
+                                        String bgImageUrl) {
+        Movie movie = new Movie();
+        movie.setId(Movie.getCount());
+        Movie.incCount();
+        movie.setTitle(title);
+        movie.setDescription(description);
+        movie.setStudio(studio);
+        movie.setCategory(category);
+        movie.setCardImageUrl(cardImageUrl);
+        movie.setBackgroundImageUrl(bgImageUrl);
+        movie.setVideoUrl(videoUrl);
+        return movie;
     }
 }

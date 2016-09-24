@@ -52,58 +52,80 @@
  *                                    lad
  */
 
-package de.culo.lucyo.lights;
+package de.culo.lucyo;
 
-import android.app.IntentService;
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
+/**
+ * A collection of utility methods, all static.
+ */
+public class Utils {
 
-public class LucyoLightController extends IntentService {
-
-    private static final String CONTROLLER_IP = "192.168.0.142";
-
-    private static final String ACTION_TURN_OFF = "de.culo.lucyo.lights.actions.TURN_OFF";
-    private static final String ACTION_TURN_ON = "de.culo.lucyo.lights.actions.TURN_ON";
-
-    public LucyoLightController() {
-        super("LightController");
+    /*
+     * Making sure public utility methods remain static
+     */
+    private Utils() {
     }
 
-    @NonNull
-    private WiFiBox createBox() throws UnknownHostException {
-        return new WiFiBox(CONTROLLER_IP);
+    /**
+     * Returns the screen/display size
+     */
+    public static Point getDisplaySize(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        try {
-            switch (intent.getAction()) {
-                case ACTION_TURN_OFF:
-                    createBox().off();
-                    break;
-                case ACTION_TURN_ON:
-                    createBox().on();
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Shows a (long) toast
+     */
+    public static void showToast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Shows a (long) toast.
+     */
+    public static void showToast(Context context, int resourceId) {
+        Toast.makeText(context, context.getString(resourceId), Toast.LENGTH_LONG).show();
+    }
+
+    public static int convertDpToPixel(Context ctx, int dp) {
+        float density = ctx.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
+    }
+
+    /**
+     * Formats time in milliseconds to hh:mm:ss string format.
+     */
+    public static String formatMillis(int millis) {
+        String result = "";
+        int hr = millis / 3600000;
+        millis %= 3600000;
+        int min = millis / 60000;
+        millis %= 60000;
+        int sec = millis / 1000;
+        if (hr > 0) {
+            result += hr + ":";
         }
-    }
-
-    public static void turnOn(Context c) {
-        startWithAction(c, ACTION_TURN_ON);
-    }
-
-    public static void turnOff(Context c) {
-        startWithAction(c, ACTION_TURN_OFF);
-    }
-
-    private static void startWithAction(Context c, String action) {
-        Intent intent = new Intent(action, null, c, LucyoLightController.class);
-        c.startService(intent);
+        if (min >= 0) {
+            if (min > 9) {
+                result += min + ":";
+            } else {
+                result += "0" + min + ":";
+            }
+        }
+        if (sec > 9) {
+            result += sec;
+        } else {
+            result += "0" + sec;
+        }
+        return result;
     }
 }

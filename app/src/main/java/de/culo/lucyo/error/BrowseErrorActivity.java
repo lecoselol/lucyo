@@ -105,68 +105,71 @@
  *                                  econtro
  *                                    lad
  */
-
-package de.culo.lucyo;
+package de.culo.lucyo.error;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import de.culo.lucyo.R;
 
-public class PictureActivity extends Activity {
+/*
+ * BrowseErrorActivity shows how to use ErrorFragment
+ */
+public class BrowseErrorActivity extends Activity {
+    private static int TIMER_DELAY = 3000;
+    private static int SPINNER_WIDTH = 100;
+    private static int SPINNER_HEIGHT = 100;
 
-    private ImageView image;
-    private Button snapButton;
+    private ErrorFragment mErrorFragment;
+    private SpinnerFragment mSpinnerFragment;
 
+    /**
+     * Called when the activity is first created.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snap);
+        setContentView(R.layout.activity_opa);
 
-        image = (ImageView) findViewById(R.id.snap_image);
-        snapButton = (Button) findViewById(R.id.snap_button);
-        snapButton.setOnClickListener(new View.OnClickListener() {
+        testError();
+    }
+
+    private void testError() {
+        mErrorFragment = new ErrorFragment();
+        getFragmentManager().beginTransaction().add(R.id.main_browse_fragment, mErrorFragment).commit();
+
+        mSpinnerFragment = new SpinnerFragment();
+        getFragmentManager().beginTransaction().add(R.id.main_browse_fragment, mSpinnerFragment).commit();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-//                new AsyncTask<Void, Void, Bitmap>() {
-//                    @Override
-//                    protected Bitmap doInBackground(Void... params) {
-//                        Log.d("SNAP", "taking pic");
-//                        String bytes;
-//                        try {
-//                            bytes = CameraCalls.takeAPicture();
-//                            Log.d("SNAP", bytes);
-//                            Bitmap decodedByte = buildBitmap(bytes);
-//                            return decodedByte;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//
-//                    private Bitmap buildBitmap(String bytes) {
-//                        byte[] decodedString = Base64.decode(bytes, Base64.DEFAULT);
-//                        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Bitmap bitmap) {
-//                        super.onPostExecute(bitmap);
-//                        image.setImageBitmap(bitmap);
-//                    }
-//                }.execute();
-
-                image.setImageBitmap(null);
-                Glide.with(PictureActivity.this)
-                        .load("http://192.168.0.121:88/CGIProxy.fcgi?cmd=snapPicture2&usr=user2&pwd=media2")
-                        .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                        .centerCrop()
-                        .into(image);
+            public void run() {
+                getFragmentManager().beginTransaction().remove(mSpinnerFragment).commit();
+                mErrorFragment.setErrorContent();
             }
-        });
+        }, TIMER_DELAY);
+    }
+
+    static public class SpinnerFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            ProgressBar progressBar = new ProgressBar(container.getContext());
+            if (container instanceof FrameLayout) {
+                FrameLayout.LayoutParams layoutParams =
+                        new FrameLayout.LayoutParams(SPINNER_WIDTH, SPINNER_HEIGHT, Gravity.CENTER);
+                progressBar.setLayoutParams(layoutParams);
+            }
+            return progressBar;
+        }
     }
 }

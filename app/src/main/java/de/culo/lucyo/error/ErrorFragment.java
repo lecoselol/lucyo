@@ -105,67 +105,38 @@
  *                                  econtro
  *                                    lad
  */
+package de.culo.lucyo.error;
 
-package de.culo.lucyo;
-
-import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import de.culo.lucyo.R;
 
-public class PictureActivity extends Activity {
-
-    private ImageView image;
-    private Button snapButton;
+/*
+ * This class demonstrates how to extend ErrorFragment
+ */
+public class ErrorFragment extends android.support.v17.leanback.app.ErrorFragment {
+    private static final String TAG = "ErrorFragment";
+    private static final boolean TRANSLUCENT = true;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snap);
+        setTitle(getResources().getString(R.string.app_name));
+    }
 
-        image = (ImageView) findViewById(R.id.snap_image);
-        snapButton = (Button) findViewById(R.id.snap_button);
-        snapButton.setOnClickListener(new View.OnClickListener() {
+    void setErrorContent() {
+        setImageDrawable(getResources().getDrawable(R.drawable.lb_ic_sad_cloud));
+        setMessage(getResources().getString(R.string.error_fragment_message));
+        setDefaultBackground(TRANSLUCENT);
+
+        setButtonText(getResources().getString(R.string.dismiss_error));
+        setButtonClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-//                new AsyncTask<Void, Void, Bitmap>() {
-//                    @Override
-//                    protected Bitmap doInBackground(Void... params) {
-//                        Log.d("SNAP", "taking pic");
-//                        String bytes;
-//                        try {
-//                            bytes = CameraCalls.takeAPicture();
-//                            Log.d("SNAP", bytes);
-//                            Bitmap decodedByte = buildBitmap(bytes);
-//                            return decodedByte;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//
-//                    private Bitmap buildBitmap(String bytes) {
-//                        byte[] decodedString = Base64.decode(bytes, Base64.DEFAULT);
-//                        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Bitmap bitmap) {
-//                        super.onPostExecute(bitmap);
-//                        image.setImageBitmap(bitmap);
-//                    }
-//                }.execute();
-
-                image.setImageBitmap(null);
-                Glide.with(PictureActivity.this)
-                        .load("http://192.168.0.121:88/CGIProxy.fcgi?cmd=snapPicture2&usr=user2&pwd=media2")
-                        .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                        .centerCrop()
-                        .into(image);
+            public void onClick(View arg0) {
+                getFragmentManager().beginTransaction().remove(ErrorFragment.this).commit();
             }
         });
     }
