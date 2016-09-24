@@ -111,8 +111,6 @@ package de.culo.lucyo.yourface;
 import android.content.Context;
 
 import com.google.android.gms.vision.MultiProcessor;
-import com.google.android.gms.vision.Tracker;
-import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 import com.novoda.support.Optional;
 
@@ -122,15 +120,12 @@ public class DerpFaceDetector {
 
     private FrameProvider frameProvider;
 
-    public DerpFaceDetector(Context context) {
+    public DerpFaceDetector(Context context, FaceTrackerFactory faceTrackerFactory) {
         detector = new FaceDetector.Builder(context)
                 .setClassificationType(FaceDetector.FAST_MODE)
                 .build();
 
-        detector.setProcessor(
-                new MultiProcessor.Builder<>(new FaceTrackerFactory())
-                        .build()
-        );
+        detector.setProcessor(new MultiProcessor.Builder<>(faceTrackerFactory).build());
     }
 
     /**
@@ -151,22 +146,12 @@ public class DerpFaceDetector {
             throw new IllegalStateException("The Play Services face thingy isn't ready yet");
         }
 
+        this.frameProvider = frameProvider;
         frameProvider.setDetector(Optional.of(detector));
     }
 
     public void bluePill() {
         frameProvider.setDetector(Optional.<FaceDetector>absent());
         detector.release();
-    }
-
-    /**
-     * Factory for creating a face tracker to be associated with a new face.  The multiprocessor
-     * uses this factory to create face trackers as needed -- one for each individual.
-     */
-    private static class FaceTrackerFactory implements MultiProcessor.Factory<Face> {
-        @Override
-        public Tracker<Face> create(Face face) {
-            return new FaceTracker(face);
-        }
     }
 }
