@@ -19,7 +19,7 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.Leanback">
     <activity
-      android:name=".opa.OpaActivity"
+      android:name=".library.MovieCollectionActivity"
       android:banner="@drawable/app_icon_your_company"
       android:icon="@drawable/app_icon_your_company"
       android:label="@string/title_activity_opa"
