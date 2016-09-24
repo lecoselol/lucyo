@@ -60,6 +60,7 @@ import android.support.v17.leanback.widget.Presenter;
 import android.view.ViewGroup;
 
 import de.culo.lucyo.R;
+import de.culo.lucyo.model.Movie;
 
 public class MovieRowPresenter extends Presenter {
 
@@ -77,7 +78,7 @@ public class MovieRowPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-        MoviePoster moviePoster = (MoviePoster) item;
+        Movie moviePoster = (Movie) item;
         ImageCardView view = (ImageCardView) viewHolder.view;
 
         // TODO LOAD PICTURE FROM moviePoster and stuff

@@ -114,9 +114,11 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import de.culo.lucyo.model.Movie;
+import de.culo.lucyo.model.MovieList;
 
 public class MovieCollectionRowFragment extends RowsFragment {
 
@@ -128,8 +130,8 @@ public class MovieCollectionRowFragment extends RowsFragment {
     }
 
     private List<ListRow> createMovieRow() {
-        List<MoviePoster> movieposter = Arrays.asList(new MoviePoster("Hello", "http://graphicdesignjunction.com/wp-content/uploads/2011/12/grey-movie-poster.jpg"));
-        ListRow row = new ListRow(new HeaderItem("Movies"), new ListObjectAdapter<>(new MovieRowPresenter(), movieposter));
+        List<Movie> movies = MovieList.setupMovies();
+        ListRow row = new ListRow(new HeaderItem("Movies"), new ListObjectAdapter<>(new MovieRowPresenter(), movies));
         return Collections.singletonList(row);
     }
 }
