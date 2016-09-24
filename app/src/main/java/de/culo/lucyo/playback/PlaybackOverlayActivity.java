@@ -70,7 +70,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import de.culo.lucyo.R;
-import de.culo.lucyo.SwitchManager;
+import de.culo.lucyo.lights.SwitchManager;
 import de.culo.lucyo.model.Movie;
 
 /**
@@ -94,20 +94,18 @@ public class PlaybackOverlayActivity extends Activity implements
         setContentView(R.layout.playback_controls);
         loadViews();
         setupCallbacks();
-        switchManager = new SwitchManager();
+        switchManager = new SwitchManager(this);
         mSession = new MediaSession(this, "LeanbackSampleApp");
         mSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
-                                  MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+                MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mSession.setActive(true);
-
-        mVideoView.start();
-        switchManager.turnOff();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mVideoView.suspend();
+        switchManager.turnOn();
     }
 
     @Override
@@ -160,8 +158,9 @@ public class PlaybackOverlayActivity extends Activity implements
     }
 
     private void updatePlaybackState(int position) {
-        PlaybackState.Builder stateBuilder = new PlaybackState.Builder()
-                .setActions(getAvailableActions());
+        @SuppressWarnings("WrongConstant") PlaybackState.Builder stateBuilder =
+                new PlaybackState.Builder()
+                        .setActions(getAvailableActions());
         int state = PlaybackState.STATE_PLAYING;
         if (mPlaybackState == LeanbackPlaybackState.PAUSED) {
             state = PlaybackState.STATE_PAUSED;
@@ -300,6 +299,10 @@ public class PlaybackOverlayActivity extends Activity implements
      */
     public enum LeanbackPlaybackState {
         PLAYING, PAUSED, BUFFERING, IDLE
+    }
+
+    public SwitchManager getSwitchManager() {
+        return switchManager;
     }
 
     private class MediaSessionCallback extends MediaSession.Callback {

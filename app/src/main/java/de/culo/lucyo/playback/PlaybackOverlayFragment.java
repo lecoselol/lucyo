@@ -180,6 +180,13 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         });
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        togglePlayback(true);
+        ((PlaybackOverlayActivity) getActivity()).getSwitchManager().turnOff();
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity context) {
@@ -188,7 +195,7 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
             mCallback = (OnPlayPauseClickedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                                               + " must implement OnPlayPauseClickedListener");
+                    + " must implement OnPlayPauseClickedListener");
         }
     }
 
@@ -239,14 +246,14 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
             startProgressAutomation();
             setFadingEnabled(true);
             mCallback.onFragmentPlayPause(mItems.get(mCurrentItem),
-                                          mPlaybackControlsRow.getCurrentTime(), true
+                    mPlaybackControlsRow.getCurrentTime(), true
             );
             mPlayPauseAction.setIcon(mPlayPauseAction.getDrawable(PlayPauseAction.PAUSE));
         } else {
             stopProgressAutomation();
             setFadingEnabled(false);
             mCallback.onFragmentPlayPause(mItems.get(mCurrentItem),
-                                          mPlaybackControlsRow.getCurrentTime(), false
+                    mPlaybackControlsRow.getCurrentTime(), false
             );
             mPlayPauseAction.setIcon(mPlayPauseAction.getDrawable(PlayPauseAction.PLAY));
         }
