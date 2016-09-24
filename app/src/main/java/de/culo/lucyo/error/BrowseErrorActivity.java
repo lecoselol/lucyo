@@ -53,11 +53,11 @@
  */
 
 package de.culo.lucyo.error;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v17.leanback.app.ErrorFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

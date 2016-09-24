@@ -52,7 +52,7 @@
  *                                    lad
  */
 
-ackage de.culo.lucyo.error;
+package de.culo.lucyo.error;
 
 import android.os.Bundle;
 import android.util.Log;
