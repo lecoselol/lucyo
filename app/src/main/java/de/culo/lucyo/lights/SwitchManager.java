@@ -160,20 +160,28 @@
  *                                    lad
  */
 
-package de.culo.lucyo.model;
+package de.culo.lucyo.lights;
 
-import android.support.v17.leanback.widget.AbstractDetailsDescriptionPresenter;
+import android.content.Context;
 
-public class DetailsDescriptionPresenter extends AbstractDetailsDescriptionPresenter {
+import de.culo.lucyo.log.Poet;
 
-    @Override
-    protected void onBindDescription(ViewHolder viewHolder, Object item) {
-        Movie movie = (Movie) item;
+public class SwitchManager {
 
-        if (movie != null) {
-            viewHolder.getTitle().setText(movie.getTitle());
-            viewHolder.getSubtitle().setText(movie.getStudio());
-            viewHolder.getBody().setText(movie.getDescription());
-        }
+    private final Context context;
+
+    public SwitchManager(Context context) {
+        this.context = context;
     }
+
+    public void turnOff() {
+        Poet.screams("TURN THE FUCKING LIGHTS OFF");
+        LucyoLightController.turnOff(context);
+    }
+
+    public void turnOn() {
+        Poet.screams("CAN'T SEE SHIT, GIMME LIGHT");
+        LucyoLightController.turnOn(context);
+    }
+
 }

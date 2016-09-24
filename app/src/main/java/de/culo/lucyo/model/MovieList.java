@@ -52,6 +52,60 @@
  *                                    lad
  */
 
+/*
+ *                                       Manonilfu
+ *                                   turodiMedicalDime
+ *                               nsion,cheèunagrancazzata
+ *                       ,ioparlodellalo           cura,Ren
+ *                    è,lalocura.La                  pazzia,
+ *                  checazzoRenè,la                   cervez
+ *                  a,latradizione,o                   merda
+ *                  ,comelachia mitu,m    aconunabell  aspru
+ *                  zzatadipazzia:ilpeg giorconservator ismo
+ *                  cheperòsitingedis  impatia,dicolore,dipa
+ *                 illet  te.Inunapar  ola:Platinette;perché
+ *                Platinette,haicapito ,ciassolved atuttiino
+ *               strimali,datuttelen   ostremalefatte...Sono
+ *              cattolico,masonogiovaneevitaleperché  midiv
+ *             erton          oleminchiatedelsab     atoser
+ *            a.Ève                      roono?C     ifasen
+ *           tirela                                 coscie
+ *          nzaapo                                 stoPla
+ *         tinett                                  e,ques
+ *         taèl'                      Ital        iadelf
+ *         utur                      o:unp aes   edimus
+ *         iche                      tte,mentre  fuori                         c'èlamort
+ *        e!Èqu                      estochede  vifar                        etu:Occhidel
+ *        cuore                     sì,maconle suepa                       pparde    lle,
+ *        conle                     suetirate  contr                     oladrog    a,con
+ *        trol'                    abortomac  onunas                   trana,c     olora
+ *        ta,lu                    ccicante   frociaggine.Smalizia   taealle     graco
+ *         meun                   acazzodi    lambada.ÈlalocuraRenè,èlacaz      zodil
+ *         ocur                   a.Sel'a     cchia   ppiha   ivinto.Man      onilfu
+ *         turo                  diMedica      lDi   mension,cheèunagr      ancazz
+ *         ata,i               oparl odell         alocura,Renè,laloc     ura.Lap
+ *          azzi             a,che  cazzoRe         nè,lacerveza,latrad   izione,o
+ *          merda            ,comelachiamit                     u,maconu    nabellasp
+ *           ruzza            tadipazzia:i              lpeg       giorco  nser vator
+ *           ismoch              eper                   òsit        ingedi  simpatia
+ *            ,dicol                                ore              ,dipa    ille
+ *             tte.Inun                            apar              ola:P     lati
+ *                nette;p                          erch              éPlatinette,ha
+ *      ica        pito,ciass                       olve           datuttiinostrim
+ *     ali,dat    uttelenostremalef                  att         e...Son    o
+ *     cattolico,maso nogiovaneevitaleperch           émid    iverton
+ *     olem inchiatedelsab    atosera.Èveroon o?Cifasentirelacoscie
+ *      nzaa  postoPlati         nette,quest aèl'Italiadelfuturo
+ *       :unp   aesedi         musichette,m entre fuoric'èlam
+ *        orte!Èques           tochedevifa  retu
+ *         :Occhid              elcuores   ì,ma
+ *           con                lesuep    appa
+ *                               rdelle  ,con
+ *                                lesuetirat
+ *                                  econtro
+ *                                    lad
+ */
+
 package de.culo.lucyo.model;
 
 import java.util.ArrayList;
@@ -72,40 +126,35 @@ public final class MovieList {
     public static List<Movie> setupMovies() {
         list = new ArrayList<Movie>();
         String title[] = {
-                "Zeitgeist 2010_ Year in Review",
-                "Google Demo Slam_ 20ft Search",
-                "Introducing Gmail Blue",
-                "Introducing Google Fiber to the Pole",
-                "Introducing Google Nose"
+                "Hokuto No Ken",
+                "Italy-England (1976)",
+                "Archer's best phrasing",
+                "Over 9000",
+                "Bananas gone wild"
         };
 
-        String description = "Fusce id nisi turpis. Praesent viverra bibendum semper. "
-                + "Donec tristique, orci sed semper lacinia, quam erat rhoncus massa, non congue tellus est "
-                + "quis tellus. Sed mollis orci venenatis quam scelerisque accumsan. Curabitur a massa sit "
-                + "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit "
-                + "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id "
-                + "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat.";
+        String description = "Something something danger zone";
 
         String videoUrl[] = {
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose.mp4"
+                "https://dl.dropboxusercontent.com/u/6136072/Hokuto%20No%20Ken%20-%20ATATATATATATATATAT.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/ITALIA%20-INGHILTERRA%20FANTOZZI%20SUB%20CRO.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/Archer%20-%20Phrasing%20Compilation.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/IT%27S%20OVER%209000%21%20Sparta%20remix.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up.mp4"
         };
         String bgImageUrl[] = {
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/bg.jpg",
+                "http://vignette2.wikia.nocookie.net/hokuto-no-ken/images/a/a2/557r.jpg/revision/latest?cb=20090813054031",
+                "http://www.articolozero.org/wp/wp-content/uploads/2015/04/Fantozzi.png",
+                "https://uproxx.files.wordpress.com/2014/10/archer.png?w=650&h=366",
+                "https://i.kinja-img.com/gawker-media/image/upload/hqwhpdiqeax3t0gdcozv.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
         };
         String cardImageUrl[] = {
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/card.jpg"
+                "http://vignette2.wikia.nocookie.net/hokuto-no-ken/images/a/a2/557r.jpg/revision/latest?cb=20090813054031",
+                "http://www.articolozero.org/wp/wp-content/uploads/2015/04/Fantozzi.png",
+                "https://uproxx.files.wordpress.com/2014/10/archer.png?w=650&h=366",
+                "https://i.kinja-img.com/gawker-media/image/upload/hqwhpdiqeax3t0gdcozv.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
         };
 
         list.add(buildMovieInfo("category", title[0],
