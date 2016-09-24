@@ -56,21 +56,19 @@ package de.culo.lucyo.yourface;
 
 import android.content.Context;
 
-import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import com.novoda.support.Optional;
 
 public class DerpFaceDetector {
 
-    private static final int RC_HANDLE_GMS = 42;
+    private final FaceDetector detector;
 
-    private Context context;
-    private CameraSource mCameraSource;
-    private FaceDetector detector;
+    private FrameProvider frameProvider;
 
-    public DerpFaceDetector() {
+    public DerpFaceDetector(Context context) {
         detector = new FaceDetector.Builder(context)
                 .setClassificationType(FaceDetector.FAST_MODE)
                 .build();
@@ -86,7 +84,7 @@ public class DerpFaceDetector {
      * to other detection examples to enable the barcode detector to detect small barcodes
      * at long distances.
      */
-    public void initialize(FrameProvider frameProvider) throws IllegalStateException {
+    public void redPill(FrameProvider frameProvider) throws IllegalStateException {
         if (!detector.isOperational()) {
             // Note: The first time that an app using face API is installed on a device, GMS will
             // download a native library to the device in order to do detection.  Usually this
@@ -99,7 +97,12 @@ public class DerpFaceDetector {
             throw new IllegalStateException("The Play Services face thingy isn't ready yet");
         }
 
-        frameProvider.setDetector(detector);
+        frameProvider.setDetector(Optional.of(detector));
+    }
+
+    public void bluePill() {
+        frameProvider.setDetector(Optional.<FaceDetector>absent());
+        detector.release();
     }
 
     /**
@@ -112,5 +115,4 @@ public class DerpFaceDetector {
             return new FaceTracker(face);
         }
     }
-
 }

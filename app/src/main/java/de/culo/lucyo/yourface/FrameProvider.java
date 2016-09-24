@@ -54,10 +54,10 @@
 
 package de.culo.lucyo.yourface;
 
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
+import com.novoda.support.Optional;
 
 public interface FrameProvider {
 
-    void setDetector(Detector<Face> detector);
+    void setDetector(Optional<FaceDetector> detector);
 }
