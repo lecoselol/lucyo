@@ -2,8 +2,8 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/details_fragment"
-  android:name="de.culo.lucyo.OpaDetailsFragment"
+  android:name="de.culo.lucyo.details.OpaDetailsFragment"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".OpaDetailsActivity"
+  tools:context=".details.OpaDetailsActivity"
   tools:deviceIds="tv" />

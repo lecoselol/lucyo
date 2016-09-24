@@ -52,7 +52,24 @@
  *                                    lad
  */
 
-package de.culo.lucyo;
+package de.culo.lucyo.opa;
 
-public interface LucyoTemp {
+import android.app.Activity;
+import android.os.Bundle;
+
+import de.culo.lucyo.R;
+
+/*
+ * MainActivity class that loads MainFragment
+ */
+public class OpaActivity extends Activity {
+    /**
+     * Called when the activity is first created.
+     */
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_opa);
+    }
 }
