@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="de.culo.lucyo">
+          package="de.culo.lucyo">
 
   <uses-feature
     android:name="android.software.leanback"
@@ -21,6 +22,13 @@
       </intent-filter>
     </activity>
 
-  </application>
+      <activity
+          android:name=".activity.LightTestActivity"
+          android:exported="true"
+          android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar" />
 
+      <service
+          android:name=".lights.LucyoLightController"/>
+
+  </application>
 </manifest>
