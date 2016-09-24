@@ -128,19 +128,8 @@ public class MovieCollectionRowFragment extends RowsFragment {
     }
 
     private List<ListRow> createMovieRow() {
-
         List<MoviePoster> movieposter = Arrays.asList(new MoviePoster("Hello", "http://graphicdesignjunction.com/wp-content/uploads/2011/12/grey-movie-poster.jpg"));
-
-//        MovieRowPresenter presenter = new MovieRowPresenter();
-//        LibraryRowAdapter libraryAdapter = new LibraryRowAdapter(Arrays.asList(new MoviePoster("Hello", "http://graphicdesignjunction.com/wp-content/uploads/2011/12/grey-movie-poster.jpg")), presenter);
-
-//        ArrayList<ListRow> rowsList = new ArrayList<>();
-//        rowsList.add(new ListRow(libraryAdapter));
-//        ListRowAdapter horizontalAdapter = new ListRowAdapter(rowsList, presenter);
-
-
-        ListRow row = new ListRow(new HeaderItem("Movies"), new ListObjectAdapter<MoviePoster>(new MovieRowPresenter(), movieposter));
-
+        ListRow row = new ListRow(new HeaderItem("Movies"), new ListObjectAdapter<>(new MovieRowPresenter(), movieposter));
         return Collections.singletonList(row);
     }
 }
