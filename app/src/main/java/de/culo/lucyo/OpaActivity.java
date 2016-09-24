@@ -17,6 +17,8 @@ package de.culo.lucyo;
 import android.app.Activity;
 import android.os.Bundle;
 
+import de.culo.lucyo.log.Poet;
+
 /*
  * MainActivity class that loads MainFragment
  */
@@ -29,5 +31,6 @@ public class OpaActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opa);
+        Poet.says("OPA GANGAM STYLE");
     }
 }
