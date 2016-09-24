@@ -83,6 +83,7 @@ public class PlaybackOverlayActivity extends Activity implements
     private VideoView mVideoView;
     private LeanbackPlaybackState mPlaybackState = LeanbackPlaybackState.IDLE;
     private MediaSession mSession;
+    private SwitchManager switchManager;
 
     /**
      * Called when the activity is first created.
@@ -93,12 +94,14 @@ public class PlaybackOverlayActivity extends Activity implements
         setContentView(R.layout.playback_controls);
         loadViews();
         setupCallbacks();
+        switchManager = new SwitchManager();
         mSession = new MediaSession(this, "LeanbackSampleApp");
-        mSession.setCallback(new MediaSessionCallback(new SwitchManager()));
         mSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
                                   MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
-
         mSession.setActive(true);
+
+        mVideoView.start();
+        switchManager.turnOff();
     }
 
     @Override
@@ -145,10 +148,12 @@ public class PlaybackOverlayActivity extends Activity implements
             if (position > 0) {
                 mVideoView.seekTo(position);
                 mVideoView.start();
+                switchManager.turnOff();
             }
         } else {
             mPlaybackState = LeanbackPlaybackState.PAUSED;
             mVideoView.pause();
+            switchManager.turnOn();
         }
         updatePlaybackState(position);
         updateMetadata(movie);
@@ -162,6 +167,7 @@ public class PlaybackOverlayActivity extends Activity implements
             state = PlaybackState.STATE_PAUSED;
         }
         stateBuilder.setState(state, position, 1.0f);
+        mSession.setCallback(new MediaSessionCallback());
         mSession.setPlaybackState(stateBuilder.build());
     }
 
@@ -247,6 +253,7 @@ public class PlaybackOverlayActivity extends Activity implements
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mPlaybackState = LeanbackPlaybackState.IDLE;
+                switchManager.turnOn();
             }
         });
 
@@ -296,29 +303,5 @@ public class PlaybackOverlayActivity extends Activity implements
     }
 
     private class MediaSessionCallback extends MediaSession.Callback {
-
-        private final SwitchManager switchManager;
-
-        public MediaSessionCallback(SwitchManager switchManager) {
-            this.switchManager = switchManager;
-        }
-
-        @Override
-        public void onPlay() {
-            super.onPlay();
-            switchManager.turnOff();
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-            switchManager.turnOn();
-        }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            switchManager.turnOn();
-        }
     }
 }

@@ -192,12 +192,6 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         }
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        togglePlayback(true);
-    }
-
     private void setupRows() {
 
         ClassPresenterSelector ps = new ClassPresenterSelector();
