@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "de.culo.lucyo"
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -30,6 +30,7 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:leanback-v17:24.2.1'
+    compile 'com.google.android.gms:play-services-vision:9.6.1'
 
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
