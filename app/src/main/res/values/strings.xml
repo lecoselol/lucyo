@@ -1,8 +1,8 @@
 <resources>
   <string name="app_name">Lucyo</string>
-  <string name="title_activity_opa">Leanback Useless Opa Activity</string>
-  <string name="browse_title"><![CDATA[Videos by Your Company]]></string>
-  <string name="related_movies">Related Videos</string>
+  <string name="title_activity_opa">Opa Opa</string>
+  <string name="browse_title"><![CDATA[LOL VIDEOS]]></string>
+  <string name="related_movies">Related Things</string>
   <string name="vertical_grid_title"><![CDATA[Vertical Video Grid]]></string>
   <string name="error">Error</string>
   <string name="ok">OK</string>
