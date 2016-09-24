@@ -130,7 +130,7 @@ public class PlaybackOverlayActivity extends Activity implements
         if (available == ConnectionResult.SUCCESS) {
             startTheCreepyFaceStuff();
         } else {
-            Toast.makeText(this, "No Play Services #sadpanda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Play Services #sadpanda " + available, Toast.LENGTH_SHORT).show();
         }
     }
 
