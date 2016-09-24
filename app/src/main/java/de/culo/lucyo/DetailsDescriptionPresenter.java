@@ -14,20 +14,18 @@
 
 package de.culo.lucyo;
 
-import android.app.Activity;
-import android.os.Bundle;
+import android.support.v17.leanback.widget.AbstractDetailsDescriptionPresenter;
 
-/*
- * MainActivity class that loads MainFragment
- */
-public class OpaActivity extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
+public class DetailsDescriptionPresenter extends AbstractDetailsDescriptionPresenter {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opa);
+    protected void onBindDescription(ViewHolder viewHolder, Object item) {
+        Movie movie = (Movie) item;
+
+        if (movie != null) {
+            viewHolder.getTitle().setText(movie.getTitle());
+            viewHolder.getSubtitle().setText(movie.getStudio());
+            viewHolder.getBody().setText(movie.getDescription());
+        }
     }
 }

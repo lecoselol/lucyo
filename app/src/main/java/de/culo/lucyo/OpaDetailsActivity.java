@@ -18,16 +18,19 @@ import android.app.Activity;
 import android.os.Bundle;
 
 /*
- * MainActivity class that loads MainFragment
+ * Details activity class that loads LeanbackDetailsFragment class
  */
-public class OpaActivity extends Activity {
+public class OpaDetailsActivity extends Activity {
+    public static final String SHARED_ELEMENT_NAME = "hero";
+    public static final String MOVIE = "Movie";
+
     /**
      * Called when the activity is first created.
      */
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opa);
+        setContentView(R.layout.activity_opa_details);
     }
+
 }
