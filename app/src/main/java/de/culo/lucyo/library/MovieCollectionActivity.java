@@ -55,17 +55,51 @@
 package de.culo.lucyo.library;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v17.leanback.app.BackgroundManager;
+import android.support.v17.leanback.widget.TitleView;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import de.culo.lucyo.R;
 
 public class MovieCollectionActivity extends Activity {
 
 
+    private BackgroundManager instance;
+    private ImageView backgroundView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
+        backgroundView = (ImageView) findViewById(R.id.background);
 
+        instance = BackgroundManager.getInstance(this);
+        instance.attach(getWindow());
+        TitleView titleView = (TitleView) findViewById(R.id.title);
+        titleView.setTitle("Bananafliks");
+
+        Glide.with(this)
+                .load("http://kurld.com/images/bananas-wallpaper/bananas-wallpaper-10.jpg")
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        instance.setBitmap(resource);
+                    }
+                });
+        ;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        instance.release();
     }
 }

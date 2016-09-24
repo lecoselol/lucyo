@@ -54,17 +54,23 @@
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/library_background">
+             android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.v17.leanback.widget.TitleView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <fragment
         android:id="@+id/activity_tv_brand_hub_rows"
         android:name="de.culo.lucyo.library.MovieCollectionRowFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_gravity="bottom"/>
-
 </FrameLayout>

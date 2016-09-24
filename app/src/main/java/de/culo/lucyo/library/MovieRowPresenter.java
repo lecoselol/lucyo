@@ -59,6 +59,8 @@ import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import de.culo.lucyo.R;
 import de.culo.lucyo.model.Movie;
 
@@ -81,11 +83,14 @@ public class MovieRowPresenter extends Presenter {
         Movie moviePoster = (Movie) item;
         ImageCardView view = (ImageCardView) viewHolder.view;
 
-        // TODO LOAD PICTURE FROM moviePoster and stuff
+        view.setTitleText(moviePoster.getTitle());
+
+        Glide.with(view.getContext())
+                .load(moviePoster.getCardImageUrl())
+                .into(view.getMainImageView());
     }
 
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
-        //
     }
 }
