@@ -55,14 +55,18 @@
 package de.culo.lucyo.library;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
 import de.culo.lucyo.R;
+import de.culo.lucyo.details.OpaDetailsActivity;
 import de.culo.lucyo.model.Movie;
+import de.culo.lucyo.playback.PlaybackOverlayActivity;
 
 public class MovieRowPresenter extends Presenter {
 
@@ -80,14 +84,24 @@ public class MovieRowPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-        Movie moviePoster = (Movie) item;
+        final Movie movie = (Movie) item;
         ImageCardView view = (ImageCardView) viewHolder.view;
 
-        view.setTitleText(moviePoster.getTitle());
+        view.setTitleText(movie.getTitle());
 
         Glide.with(view.getContext())
-                .load(moviePoster.getCardImageUrl())
+                .load(movie.getCardImageUrl())
                 .into(view.getMainImageView());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), PlaybackOverlayActivity.class);
+                intent.putExtra(OpaDetailsActivity.MOVIE, movie);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
