@@ -106,89 +106,32 @@
  *                                    lad
  */
 
-package de.culo.lucyo.model;
+package de.culo.lucyo.library;
 
-import java.util.ArrayList;
+import android.os.Bundle;
+import android.support.v17.leanback.app.RowsFragment;
+import android.support.v17.leanback.widget.HeaderItem;
+import android.support.v17.leanback.widget.ListRow;
+import android.support.v17.leanback.widget.ListRowPresenter;
+
+import java.util.Collections;
 import java.util.List;
 
-public final class MovieList {
-    public static final String MOVIE_CATEGORY[] = {
-            "Category Zero",
-            "Category One",
-            "Category Two",
-            "Category Three",
-            "Category Four",
-            "Category Five",
-    };
+import de.culo.lucyo.model.Movie;
+import de.culo.lucyo.model.MovieList;
 
-    public static List<Movie> list;
+public class MovieCollectionRowFragment extends RowsFragment {
 
-    public static List<Movie> setupMovies() {
-        list = new ArrayList<Movie>();
-        String title[] = {
-                "Hokuto No Ken",
-                "Italy-England (1976)",
-                "Archer's best phrasing",
-                "Over 9000",
-                "Bananas gone wild"
-        };
-
-        String description = "Something something danger zone";
-
-        String videoUrl[] = {
-                "https://dl.dropboxusercontent.com/u/6136072/Hokuto%20No%20Ken%20-%20ATATATATATATATATAT.mp4",
-                "https://dl.dropboxusercontent.com/u/6136072/ITALIA%20-INGHILTERRA%20FANTOZZI%20SUB%20CRO.mp4",
-                "https://dl.dropboxusercontent.com/u/6136072/Archer%20-%20Phrasing%20Compilation.mp4",
-                "https://dl.dropboxusercontent.com/u/6136072/IT%27S%20OVER%209000%21%20Sparta%20remix.mp4",
-                "https://dl.dropboxusercontent.com/u/6136072/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up.mp4"
-        };
-        String bgImageUrl[] = {
-                "http://vignette2.wikia.nocookie.net/hokuto-no-ken/images/a/a2/557r.jpg/revision/latest?cb=20090813054031",
-                "http://www.articolozero.org/wp/wp-content/uploads/2015/04/Fantozzi.png",
-                "https://uproxx.files.wordpress.com/2014/10/archer.png?w=650&h=366",
-                "https://i.kinja-img.com/gawker-media/image/upload/hqwhpdiqeax3t0gdcozv.jpg",
-                "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
-        };
-        String cardImageUrl[] = {
-                "http://vignette2.wikia.nocookie.net/hokuto-no-ken/images/a/a2/557r.jpg/revision/latest?cb=20090813054031",
-                "http://www.articolozero.org/wp/wp-content/uploads/2015/04/Fantozzi.png",
-                "https://uproxx.files.wordpress.com/2014/10/archer.png?w=650&h=366",
-                "https://i.kinja-img.com/gawker-media/image/upload/hqwhpdiqeax3t0gdcozv.jpg",
-                "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
-        };
-
-        list.add(buildMovieInfo("category", title[0],
-                                description, "Studio Zero", videoUrl[0], cardImageUrl[0], bgImageUrl[0]
-        ));
-        list.add(buildMovieInfo("category", title[1],
-                                description, "Studio One", videoUrl[1], cardImageUrl[1], bgImageUrl[1]
-        ));
-        list.add(buildMovieInfo("category", title[2],
-                                description, "Studio Two", videoUrl[2], cardImageUrl[2], bgImageUrl[2]
-        ));
-        list.add(buildMovieInfo("category", title[3],
-                                description, "Studio Three", videoUrl[3], cardImageUrl[3], bgImageUrl[3]
-        ));
-        list.add(buildMovieInfo("category", title[4],
-                                description, "Studio Four", videoUrl[4], cardImageUrl[4], bgImageUrl[4]
-        ));
-
-        return list;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ListRowAdapter rowsAdapter = new ListRowAdapter(createMovieRow(), new ListRowPresenter());
+        setAdapter(rowsAdapter);
     }
 
-    private static Movie buildMovieInfo(String category, String title,
-                                        String description, String studio, String videoUrl, String cardImageUrl,
-                                        String bgImageUrl) {
-        Movie movie = new Movie();
-        movie.setId(Movie.getCount());
-        Movie.incCount();
-        movie.setTitle(title);
-        movie.setDescription(description);
-        movie.setStudio(studio);
-        movie.setCategory(category);
-        movie.setCardImageUrl(cardImageUrl);
-        movie.setBackgroundImageUrl(bgImageUrl);
-        movie.setVideoUrl(videoUrl);
-        return movie;
+    private List<ListRow> createMovieRow() {
+        List<Movie> movies = MovieList.setupMovies();
+        ListRow row = new ListRow(new HeaderItem("Movies"), new ListObjectAdapter<>(new MovieRowPresenter(), movies));
+        return Collections.singletonList(row);
     }
 }

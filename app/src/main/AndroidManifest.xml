@@ -20,7 +20,7 @@
         android:theme="@style/Theme.Leanback">
 
         <activity
-            android:name=".opa.OpaActivity"
+            android:name=".library.MovieCollectionActivity"
             android:banner="@drawable/app_icon_your_company"
             android:icon="@drawable/app_icon_your_company"
             android:label="@string/title_activity_opa"
@@ -31,6 +31,7 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
+
 
         <activity android:name=".details.OpaDetailsActivity"/>
         <activity android:name=".playback.PlaybackOverlayActivity"/>
@@ -49,6 +50,7 @@
             android:name=".activity.LightTestActivity"
             android:exported="true"
             android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar"/>
+
 
         <service
             android:name=".lights.LucyoLightController"/>
