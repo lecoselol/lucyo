@@ -11,7 +11,7 @@ public class Poet {
     }
 
     public static void screams(String someShit) {
-        Log.e(TAG, someShit);
+        Log.e(TAG, "AAAAAAAAAAAAHHHHHH " + someShit);
     }
 
 }
