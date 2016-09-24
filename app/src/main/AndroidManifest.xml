@@ -43,6 +43,10 @@
         <service
             android:name=".lights.LucyoLightController"/>
 
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="face"/>
+
     </application>
 
 </manifest>
