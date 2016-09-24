@@ -69,7 +69,6 @@ import de.culo.lucyo.R;
 
 public class MovieCollectionActivity extends Activity {
 
-
     private BackgroundManager instance;
     private ImageView backgroundView;
 
