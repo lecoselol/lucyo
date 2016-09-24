@@ -126,40 +126,35 @@ public final class MovieList {
     public static List<Movie> setupMovies() {
         list = new ArrayList<Movie>();
         String title[] = {
-                "Zeitgeist 2010_ Year in Review",
-                "Google Demo Slam_ 20ft Search",
-                "Introducing Gmail Blue",
-                "Introducing Google Fiber to the Pole",
-                "Introducing Google Nose"
+                "Hokuto No Ken",
+                "Italy-England (1976)",
+                "Archer's best phrasing",
+                "Over 9000",
+                "Bananas gone wild"
         };
 
-        String description = "Fusce id nisi turpis. Praesent viverra bibendum semper. "
-                + "Donec tristique, orci sed semper lacinia, quam erat rhoncus massa, non congue tellus est "
-                + "quis tellus. Sed mollis orci venenatis quam scelerisque accumsan. Curabitur a massa sit "
-                + "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit "
-                + "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id "
-                + "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat.";
+        String description = "Something something danger zone";
 
         String videoUrl[] = {
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole.mp4",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose.mp4"
+                "https://dl.dropboxusercontent.com/u/6136072/Hokuto%20No%20Ken%20-%20ATATATATATATATATAT.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/ITALIA%20-INGHILTERRA%20FANTOZZI%20SUB%20CRO.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/Archer%20-%20Phrasing%20Compilation.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/IT%27S%20OVER%209000%21%20Sparta%20remix.mp4",
+                "https://dl.dropboxusercontent.com/u/6136072/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up.mp4"
         };
         String bgImageUrl[] = {
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/bg.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/bg.jpg",
+                "http://vignette2.wikia.nocookie.net/hokuto-no-ken/images/a/a2/557r.jpg/revision/latest?cb=20090813054031",
+                "http://www.articolozero.org/wp/wp-content/uploads/2015/04/Fantozzi.png",
+                "https://uproxx.files.wordpress.com/2014/10/archer.png?w=650&h=366",
+                "https://i.kinja-img.com/gawker-media/image/upload/hqwhpdiqeax3t0gdcozv.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
         };
         String cardImageUrl[] = {
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Gmail%20Blue/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/card.jpg",
-                "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/card.jpg"
+                "http://vignette2.wikia.nocookie.net/hokuto-no-ken/images/a/a2/557r.jpg/revision/latest?cb=20090813054031",
+                "http://www.articolozero.org/wp/wp-content/uploads/2015/04/Fantozzi.png",
+                "https://uproxx.files.wordpress.com/2014/10/archer.png?w=650&h=366",
+                "https://i.kinja-img.com/gawker-media/image/upload/hqwhpdiqeax3t0gdcozv.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
         };
 
         list.add(buildMovieInfo("category", title[0],
