@@ -1,3 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="locura" />
+  <settings default="">
+    <module2copyright>
+      <element module="Code" copyright="locura" />
+    </module2copyright>
+  </settings>
 </component>

@@ -110,63 +110,107 @@ package de.culo.lucyo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.util.Log;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import com.google.android.gms.vision.Tracker;
+import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
+
+import java.util.Locale;
+
+import de.culo.lucyo.yourface.DerpFaceDetector;
+import de.culo.lucyo.yourface.FaceTrackerFactory;
+import de.culo.lucyo.yourface.YOLOFrameProvider;
 
 public class PictureActivity extends Activity {
 
-    private ImageView image;
-    private Button snapButton;
+    private DerpFaceDetector faceDetector;
+    private int faces;
+    private TextView howManyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snap);
 
-        image = (ImageView) findViewById(R.id.snap_image);
-        snapButton = (Button) findViewById(R.id.snap_button);
-        snapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                new AsyncTask<Void, Void, Bitmap>() {
-//                    @Override
-//                    protected Bitmap doInBackground(Void... params) {
-//                        Log.d("SNAP", "taking pic");
-//                        String bytes;
-//                        try {
-//                            bytes = CameraCalls.takeAPicture();
-//                            Log.d("SNAP", bytes);
-//                            Bitmap decodedByte = buildBitmap(bytes);
-//                            return decodedByte;
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return null;
-//                    }
-//
-//                    private Bitmap buildBitmap(String bytes) {
-//                        byte[] decodedString = Base64.decode(bytes, Base64.DEFAULT);
-//                        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Bitmap bitmap) {
-//                        super.onPostExecute(bitmap);
-//                        image.setImageBitmap(bitmap);
-//                    }
-//                }.execute();
+        howManyView = (TextView) findViewById(R.id.things);
 
-                image.setImageBitmap(null);
-                Glide.with(PictureActivity.this)
-                        .load("http://192.168.0.121:88/CGIProxy.fcgi?cmd=snapPicture2&usr=user2&pwd=media2")
-                        .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                        .centerCrop()
-                        .into(image);
-            }
-        });
+        faceDetector = new DerpFaceDetector(this, new TrackerFactory());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        faceDetector.redPill(new YOLOFrameProvider());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        faceDetector.bluePill();
+    }
+
+    private void newFaceIsHere() {
+        faces++;
+        showHowMany();
+    }
+
+    private void goodbyeDood() {
+        faces--;
+        showHowMany();
+    }
+
+    private void showHowMany() {
+        howManyView.setText(String.format(Locale.UK, "Faces: %d", faces));
+    }
+
+
+    /**
+     * Factory for creating a face tracker to be associated with a new face.  The multiprocessor
+     * uses this factory to create face trackers as needed -- one for each individual.
+     */
+    private class TrackerFactory implements FaceTrackerFactory {
+        @Override
+        public Tracker<Face> create(Face face) {
+            return new FaceTracker();
+        }
+    }
+
+    private class FaceTracker extends Tracker<Face> {
+
+        @Override
+        public void onNewItem(int faceId, Face face) {
+            Log.i("POTATO", "New face! ID " + faceId + ", face: " + face.toString());
+            howManyView.post(new Runnable() {
+                @Override
+                public void run() {
+                    newFaceIsHere();
+                }
+            });
+        }
+
+        @Override
+        public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
+            // ¯\_(ツ)_/¯
+            Log.i("POTATO", "Face updated: " + face.toString());
+        }
+
+        @Override
+        public void onMissing(FaceDetector.Detections<Face> detectionResults) {
+            // ¯\_(ツ)_/¯
+            Log.i("POTATO", "Face missing: " + detectionResults.toString());
+        }
+
+        @Override
+        public void onDone() {
+            Log.i("POTATO", "Face went away");
+            howManyView.post(new Runnable() {
+                @Override
+                public void run() {
+                    goodbyeDood();
+                }
+            });
+        }
     }
 }
