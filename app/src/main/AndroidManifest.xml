@@ -15,15 +15,13 @@
     <application
         android:allowBackup="false"
         android:banner="@drawable/banner_culauncher"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/banner_culauncher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Leanback">
 
         <activity
-            android:name=".library.MovieCollectionActivity"
-            android:banner="@drawable/app_icon_your_company"
-            android:icon="@drawable/app_icon_your_company"
+            android:name=".opa.OpaActivity"
             android:label="@string/title_activity_opa"
             android:logo="@drawable/app_icon_your_company"
             android:screenOrientation="landscape">
