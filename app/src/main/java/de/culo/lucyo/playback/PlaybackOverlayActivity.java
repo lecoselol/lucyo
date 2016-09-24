@@ -52,60 +52,6 @@
  *                                    lad
  */
 
-/*
- *                                       Manonilfu
- *                                   turodiMedicalDime
- *                               nsion,cheèunagrancazzata
- *                       ,ioparlodellalo           cura,Ren
- *                    è,lalocura.La                  pazzia,
- *                  checazzoRenè,la                   cervez
- *                  a,latradizione,o                   merda
- *                  ,comelachia mitu,m    aconunabell  aspru
- *                  zzatadipazzia:ilpeg giorconservator ismo
- *                  cheperòsitingedis  impatia,dicolore,dipa
- *                 illet  te.Inunapar  ola:Platinette;perché
- *                Platinette,haicapito ,ciassolved atuttiino
- *               strimali,datuttelen   ostremalefatte...Sono
- *              cattolico,masonogiovaneevitaleperché  midiv
- *             erton          oleminchiatedelsab     atoser
- *            a.Ève                      roono?C     ifasen
- *           tirela                                 coscie
- *          nzaapo                                 stoPla
- *         tinett                                  e,ques
- *         taèl'                      Ital        iadelf
- *         utur                      o:unp aes   edimus
- *         iche                      tte,mentre  fuori                         c'èlamort
- *        e!Èqu                      estochede  vifar                        etu:Occhidel
- *        cuore                     sì,maconle suepa                       pparde    lle,
- *        conle                     suetirate  contr                     oladrog    a,con
- *        trol'                    abortomac  onunas                   trana,c     olora
- *        ta,lu                    ccicante   frociaggine.Smalizia   taealle     graco
- *         meun                   acazzodi    lambada.ÈlalocuraRenè,èlacaz      zodil
- *         ocur                   a.Sel'a     cchia   ppiha   ivinto.Man      onilfu
- *         turo                  diMedica      lDi   mension,cheèunagr      ancazz
- *         ata,i               oparl odell         alocura,Renè,laloc     ura.Lap
- *          azzi             a,che  cazzoRe         nè,lacerveza,latrad   izione,o
- *          merda            ,comelachiamit                     u,maconu    nabellasp
- *           ruzza            tadipazzia:i              lpeg       giorco  nser vator
- *           ismoch              eper                   òsit        ingedi  simpatia
- *            ,dicol                                ore              ,dipa    ille
- *             tte.Inun                            apar              ola:P     lati
- *                nette;p                          erch              éPlatinette,ha
- *      ica        pito,ciass                       olve           datuttiinostrim
- *     ali,dat    uttelenostremalef                  att         e...Son    o
- *     cattolico,maso nogiovaneevitaleperch           émid    iverton
- *     olem inchiatedelsab    atosera.Èveroon o?Cifasentirelacoscie
- *      nzaa  postoPlati         nette,quest aèl'Italiadelfuturo
- *       :unp   aesedi         musichette,m entre fuoric'èlam
- *        orte!Èques           tochedevifa  retu
- *         :Occhid              elcuores   ì,ma
- *           con                lesuep    appa
- *                               rdelle  ,con
- *                                lesuetirat
- *                                  econtro
- *                                    lad
- */
-
 package de.culo.lucyo.playback;
 
 import android.app.Activity;
@@ -116,28 +62,44 @@ import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.vision.Tracker;
+import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
 
 import de.culo.lucyo.R;
 import de.culo.lucyo.lights.SwitchManager;
 import de.culo.lucyo.model.Movie;
+import de.culo.lucyo.yourface.DerpFaceDetector;
+import de.culo.lucyo.yourface.FaceTrackerFactory;
+import de.culo.lucyo.yourface.YOLOFrameProvider;
 
 /**
  * PlaybackOverlayActivity for video playback that loads PlaybackOverlayFragment
  */
 public class PlaybackOverlayActivity extends Activity implements
         PlaybackOverlayFragment.OnPlayPauseClickedListener {
-    private static final String TAG = "PlaybackOverlayActivity";
+
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private VideoView mVideoView;
     private LeanbackPlaybackState mPlaybackState = LeanbackPlaybackState.IDLE;
     private MediaSession mSession;
     private SwitchManager switchManager;
+
+    private DerpFaceDetector faceDetector;
+    private int faces;
+
+    private boolean afraidOfDark = false;
 
     /**
      * Called when the activity is first created.
@@ -153,7 +115,61 @@ public class PlaybackOverlayActivity extends Activity implements
         mSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
                 MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mSession.setActive(true);
+        faceDetector = new DerpFaceDetector(this, new TrackerFactory());
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        faceDetector.redPill(new YOLOFrameProvider());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        faceDetector.bluePill();
+        mSession.release();
+    }
+
+    private void newFaceIsHere() {
+        faces++;
+        helloIsAnyoneHere();
+    }
+
+    private void goodbyeDood() {
+        faces--;
+        helloIsAnyoneHere();
+    }
+
+    private void helloIsAnyoneHere() {
+        if (faces < 1) {
+            pauseVideoBecauseImAfraidOfDark();
+            faces = 0;
+        } else {
+            yayMyFriendsAreBack();
+        }
+    }
+
+    private void pauseVideoBecauseImAfraidOfDark() {
+        switchManager.turnOn();
+        PlaybackOverlayFragment derp = (PlaybackOverlayFragment) getFragmentManager()
+                .findFragmentById(R.id.playback_controls_fragment);
+        derp.togglePlayback(false);
+        afraidOfDark = true;
+    }
+
+    private void yayMyFriendsAreBack() {
+        if (!afraidOfDark) {
+            Log.i("POTATO", "I ain't afraid of no ghosts");
+            return;
+        }
+        afraidOfDark = false;
+        switchManager.turnOff();
+        PlaybackOverlayFragment derp = (PlaybackOverlayFragment) getFragmentManager()
+                .findFragmentById(R.id.playback_controls_fragment);
+        derp.togglePlayback(true);
+    }
+
 
     @Override
     public void onDestroy() {
@@ -258,7 +274,7 @@ public class PlaybackOverlayActivity extends Activity implements
         Glide.with(this)
                 .load(Uri.parse(movie.getCardImageUrl()))
                 .asBitmap()
-                .into(new SimpleTarget<Bitmap>(500, 500) {
+                .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
                     @Override
                     public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
                         metadataBuilder.putBitmap(MediaMetadata.METADATA_KEY_ART, bitmap);
@@ -279,14 +295,6 @@ public class PlaybackOverlayActivity extends Activity implements
 
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
-                String msg = "";
-                if (extra == MediaPlayer.MEDIA_ERROR_TIMED_OUT) {
-                    msg = getString(R.string.video_error_media_load_timeout);
-                } else if (what == MediaPlayer.MEDIA_ERROR_SERVER_DIED) {
-                    msg = getString(R.string.video_error_server_inaccessible);
-                } else {
-                    msg = getString(R.string.video_error_unknown_error);
-                }
                 mVideoView.stopPlayback();
                 mPlaybackState = LeanbackPlaybackState.IDLE;
                 return false;
@@ -332,12 +340,6 @@ public class PlaybackOverlayActivity extends Activity implements
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        mSession.release();
-    }
-
-    @Override
     public void onVisibleBehindCanceled() {
         super.onVisibleBehindCanceled();
     }
@@ -360,5 +362,53 @@ public class PlaybackOverlayActivity extends Activity implements
     }
 
     private class MediaSessionCallback extends MediaSession.Callback {
+    }
+
+    /**
+     * Factory for creating a face tracker to be associated with a new face.  The multiprocessor
+     * uses this factory to create face trackers as needed -- one for each individual.
+     */
+    private class TrackerFactory implements FaceTrackerFactory {
+        @Override
+        public Tracker<Face> create(Face face) {
+            return new FaceTracker();
+        }
+    }
+
+    private class FaceTracker extends Tracker<Face> {
+
+        @Override
+        public void onNewItem(int faceId, Face face) {
+            Log.i("POTATO", "New face! ID " + faceId + ", face: " + face.toString());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    newFaceIsHere();
+                }
+            });
+        }
+
+        @Override
+        public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
+            // ¯\_(ツ)_/¯
+            Log.i("POTATO", "Face updated: " + face.toString());
+        }
+
+        @Override
+        public void onMissing(FaceDetector.Detections<Face> detectionResults) {
+            // ¯\_(ツ)_/¯
+            Log.i("POTATO", "Face missing: " + detectionResults.toString());
+        }
+
+        @Override
+        public void onDone() {
+            Log.i("POTATO", "Face went away");
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    goodbyeDood();
+                }
+            });
+        }
     }
 }
