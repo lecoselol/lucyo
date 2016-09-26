@@ -139,7 +139,7 @@ public class PlaybackOverlayActivity extends Activity implements
             faceDetector.redPill(new YOLOFrameProvider());
         } catch (IllegalStateException e) {
             Log.w("POTATO", "Whoops", e);
-            handler.postDelayed(new LOLRunnable(), 150);
+            handler.postDelayed(new LOLRunnable(), 500);
         }
     }
 

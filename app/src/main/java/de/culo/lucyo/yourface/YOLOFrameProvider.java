@@ -100,7 +100,7 @@ public class YOLOFrameProvider implements FrameProvider {
 
         timer.scheduleAtFixedRate(
                 new ThePictureTakesTask(detector, client),
-                TIMER_PERIOD_MILLIS,
+                1000,
                 TIMER_PERIOD_MILLIS
         );
     }
